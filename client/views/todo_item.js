@@ -15,5 +15,20 @@ Template.todoItem.events({
       // Remove task
       Todos.remove({ _id: documentId });
     }
+  },
+
+  'keyup [name=todoItem]': function(event) {
+
+    // Get document ID
+    var documentId = this._id;
+
+    // Get value of the input field
+    var todoItem = $(event.target).val();
+    // Another way
+    // var todoItem = $('[name=todoItem]').val() // jQuery
+    // var todoItem = event.target.value;
+
+    // Update document
+    Todos.update({ _id: documentId }, { $set: { name: todoItem }});
   }
 });
