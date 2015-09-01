@@ -19,16 +19,20 @@ Template.todoItem.events({
 
   'keyup [name=todoItem]': function(event) {
 
-    // Get document ID
-    var documentId = this._id;
+    if (event.which == 13 || event.which == 27) {
+      $(event.target).blur();
+    } else {
+      // Get document ID
+      var documentId = this._id;
 
-    // Get value of the input field
-    var todoItem = $(event.target).val();
-    // Another way
-    // var todoItem = $('[name=todoItem]').val() // jQuery
-    // var todoItem = event.target.value;
+      // Get value of the input field
+      var todoItem = $(event.target).val();
+      // Another way
+      // var todoItem = $('[name=todoItem]').val() // jQuery
+      // var todoItem = event.target.value;
 
-    // Update document
-    Todos.update({ _id: documentId }, { $set: { name: todoItem }});
+      // Update document
+      Todos.update({ _id: documentId }, { $set: { name: todoItem }});
+    }
   }
 });
