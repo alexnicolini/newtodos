@@ -1,3 +1,16 @@
+Template.todoItem.helpers({
+  'checked': function () {
+    
+    var isCompleted = this.completed;
+
+    if (isCompleted) {
+      return 'checked';
+    } else {
+      return '';
+    }
+  }
+});
+
 Template.todoItem.events({
   'click .delete-todo': function () {
 
@@ -33,6 +46,21 @@ Template.todoItem.events({
 
       // Update document
       Todos.update({ _id: documentId }, { $set: { name: todoItem }});
+    }
+  },
+
+  'change [type=checkbox]': function() {
+
+    // Get document ID
+    var documentId = this._id;
+
+    // Get state of the task
+    var isCompleted = this.completed;
+
+    if (isCompleted) {
+      Todos.update({ _id: documentId }, { $set: { completed: false } });
+    } else {
+      Todos.update({ _id: documentId }, { $set: { completed: true } });
     }
   }
 });
