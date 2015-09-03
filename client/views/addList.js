@@ -7,6 +7,8 @@ Template.addList.events({
 
     Lists.insert({
       name: listName
+    }, function(error, results) {
+          Router.go('listPage', { _id: results });
     });
 
     $('[name=listName]').val('');
