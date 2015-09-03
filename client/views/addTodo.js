@@ -4,12 +4,15 @@ Template.addTodo.events({
 
     var todoName = $('[name="todoName"]').val();
 
+    var currentUser = Meteor.userId();
+
     var currentList = this._id;
 
     Todos.insert({
       name: todoName,
       completed: false,
       createdAt: new Date(),
+      createdBy: currentUser,
       listId: currentList
     });
 
