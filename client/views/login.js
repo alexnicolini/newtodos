@@ -11,7 +11,7 @@ Template.login.onCreated(function() {
 });
 
 Template.login.onRendered(function() {
-  $('.login').validate({
+  var validator = $('.login').validate({
     submitHandler: function(event) {
       var email = $('[name=email]').val();
       var password = $('[name=password').val();
@@ -19,7 +19,18 @@ Template.login.onRendered(function() {
       // Use account-password methods to log in the user
       Meteor.loginWithPassword(email, password, function(error) {
         if (error) {
-          console.log(error.reason);
+          if (error.reason == 'User not found') {
+            validator.showErrors({
+              email: "That email doesn't belong to a registered user."
+              // email: error.reason
+            });
+          }
+          if (error.reason == 'Incorrect password') {
+            validator.showErrors({
+              password: 'You entered an incorrect password.'
+              // password: error.reason
+            });
+          }
         } else {
           var currentRoute = Router.current().route.getName();
 

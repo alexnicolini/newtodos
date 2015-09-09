@@ -7,7 +7,7 @@ Template.register.events({
 });
 
 Template.register.onRendered(function() {
-  $('.register').validate({
+  var validator = $('.register').validate({
     submitHandler: function(event) {
       var email = $('[name=email]').val();
       var password = $('[name=password]').val();
@@ -18,7 +18,11 @@ Template.register.onRendered(function() {
         password: password
       }, function(error) {
             if (error) {
-              console.log(error.reason);
+              if (error.reason == 'Email already exists.') {
+                validator.showErrors({
+                  email: 'That email already belongs to a registered user.'
+                });
+              }
             } else {
               // Redirect user if registration succeeds
               Router.go('home'); 
