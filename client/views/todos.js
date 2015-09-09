@@ -1,3 +1,6 @@
+// "Catch" the selection of data from the Meteor.publish function
+// Meteor.subscribe('todos');
+
 Template.todos.helpers({
   'todo': function () {
 
