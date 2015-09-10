@@ -26,7 +26,7 @@ Template.todoItem.events({
     if (confirm) {
 
       // Remove task
-      Todos.remove({ _id: documentId });
+      Meteor.call('removeListItem', documentId);
     }
   },
 
@@ -45,7 +45,7 @@ Template.todoItem.events({
       // var todoItem = event.target.value;
 
       // Update document
-      Todos.update({ _id: documentId }, { $set: { name: todoItem }});
+      Meteor.call('updateListItem', documentId, todoItem);
     }
   },
 
@@ -58,9 +58,9 @@ Template.todoItem.events({
     var isCompleted = this.completed;
 
     if (isCompleted) {
-      Todos.update({ _id: documentId }, { $set: { completed: false } });
+      Meteor.call('changeItemStatus', documentId, false);
     } else {
-      Todos.update({ _id: documentId }, { $set: { completed: true } });
+      Meteor.call('changeItemStatus', documentId, true);
     }
   }
 });
